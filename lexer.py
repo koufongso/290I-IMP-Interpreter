@@ -231,7 +231,7 @@ class Lexer:
 
 if __name__ == "__main__":
     # simple test
-    input_text = "x := b1_0; if (x <= 20) then skip else x := (x + 1) end"
+    input_text = "x := 10; if (x <= 20) then skip else x := (x + 1) end; while (x <= 20) do x := (x+1) end"
     lexer = Lexer(input_text)
     tokens = lexer.lex()
     print(tokens)

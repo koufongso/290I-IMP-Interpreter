@@ -229,7 +229,7 @@ class Parser:
 
 if __name__ == "__main__":
     # simple test
-    input_text = "x := 10; if (x <= 20) then skip else x := (x + 1) end; while (x = 15) do x := 2 end"
+    input_text = "x := 10; if (x <= 20) then skip else x := (x + 1) end; while (x <= 20) do x := (x+1) end" # result should be x = 21
     import lexer
     lexer = Lexer(input_text)
     tokens = lexer.lex()
@@ -237,3 +237,6 @@ if __name__ == "__main__":
     parser = Parser(tokens)
     ast = parser.parse()
     ast.print()
+    memory = {}
+    ast.eval(memory)
+    print(memory) 
