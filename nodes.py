@@ -201,8 +201,15 @@ class NodeWhile(Node):
 
     def eval(self, memory: dict):
         # create if node that represents while loop
-        while self.condition.eval(memory): 
-            self.body.eval(memory)
+        expand_ast_node = NodeIf(
+            self.condition,
+            NodeSequence(
+                self.body,
+                self
+            ),
+            NodeSkip()
+        )
+        return expand_ast_node.eval(memory)
 
     def __str__(self):
         return f"(while {self.condition.__str__()} do {self.body.__str__()})"
