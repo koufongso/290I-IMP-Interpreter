@@ -24,7 +24,7 @@ class NodeSequence(Node):
     def __str__(self):
         return f"({self.first.__str__()}; {self.second.__str__()})"
 
-class NodeIndetifier(Node):
+class NodeIdentifier(Node):
     def __init__(self, var_name):
         super().__init__()
         self.name = var_name
