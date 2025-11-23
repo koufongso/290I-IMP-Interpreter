@@ -41,7 +41,7 @@ class Parser:
         
         if token.type == TokenType.VAR:
             self._advance() # consume VAR
-            return NodeIndetifier(token.value)
+            return NodeIdentifier(token.value)
         
         if token.type == TokenType.LPAREN:
             self._advance() # consume '('
