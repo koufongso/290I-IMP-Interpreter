@@ -1,46 +1,4 @@
-# lexer.py
-
-# --- 1. TOKEN TYPES ---
-class TokenType:
-    # Literals
-    INT     = 'int'      # integer 
-    VAR     = 'var'      # variable name
-
-    # Operators
-    PLUS    = '+'
-    MINUS   = '-'
-    MUL     = '*'
-    ASSIGN  = ':='
-    LE      = '<='       
-    EQ      = '='        # Using = for equality (IMP)
-    
-    # Keywords
-    TRUE    = 'true'
-    FALSE   = 'false'
-    NOT     = 'not'
-    AND     = 'and'
-    OR      = 'or'
-    SKIP    = 'skip'
-    IF      = 'if'
-    THEN    = 'then'
-    ELSE    = 'else'
-    END     = 'end'
-    WHILE   = 'while'
-    DO      = 'do'
-
-    # Punctuation
-    LPAREN  = '('
-    RPAREN  = ')'
-    SEQ     = ';'
-
-class Token:
-    def __init__(self, type, value=None):
-        self.type = type
-        self.value = value
-    
-    def __repr__(self):
-        if self.value: return f"Token({self.type}, {repr(self.value)})"
-        return f"Token({self.type})"
+from token import Token, TokenType
 
 # we implmenet the lexer as a state machine
 # a more advanced implementation could use regexes or similar techniques
@@ -81,7 +39,7 @@ class Lexer:
 
         if c is None:
             # end of input
-            self._set_state('EOF', '')
+            self._set_state('EOF')
         elif c.isspace():
             # white space, skip it
             self.pos += 1
@@ -247,6 +205,12 @@ class Lexer:
             self.lexeme.append(Token(TokenType.ELSE, letter_str))
         elif letter_str == 'end':
             self.lexeme.append(Token(TokenType.END, letter_str))
+        elif letter_str == 'while':
+            self.lexeme.append(Token(TokenType.WHILE, letter_str))
+        elif letter_str == 'do':
+            self.lexeme.append(Token(TokenType.DO, letter_str))
+        else:
+            raise Exception(f"Lexer error: unknown keyword '{letter_str}'")
 
 
     def _create_var_token(self, letter_str: str):
